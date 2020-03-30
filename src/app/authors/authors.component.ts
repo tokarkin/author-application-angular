@@ -47,8 +47,8 @@ export class AuthorsComponent implements  AfterViewInit {
   }
 
   getAuthors() {
-
-    this.authorHttp.getAuthors().subscribe( (response: IAuthor[]) => {
+    const filter = {};
+    this.authorHttp.getAuthors(filter).subscribe( (response: IAuthor[]) => {
       response.map(el => el.post_count = parseInt(el.address.replace(/[^\d]/g, '')));
       console.log(response);
       this.authors = response;
