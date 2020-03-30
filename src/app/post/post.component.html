@@ -1,0 +1,16 @@
+<div *ngIf="!isLoading">
+  <mat-card>
+    <h2>{{post.title}}</h2>
+    <h3>{{post.author.first_name}} {{post.author.last_name}}</h3>
+    <p>{{post.text}}</p>
+  </mat-card>
+  Comments for the post:
+  <mat-card *ngFor="let comment of post.comments">
+    <a href="/authors/{{comment.author.id}}">{{comment.author.first_name}} {{comment.author.last_name}} </a>
+    <p>{{comment.date_created |date: 'MMM d, y, h:mm:ss a'}}</p>
+    <p>{{comment.content}}</p>
+  </mat-card>
+</div>
+<div class="load-spinner" *ngIf="isLoading">
+  <mat-spinner></mat-spinner>
+</div>

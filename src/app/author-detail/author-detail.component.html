@@ -1,0 +1,30 @@
+
+<div *ngIf="!isLoading">
+  <mat-card >
+    <h2>{{authorsData.first_name}} {{authorsData.last_name}}</h2>
+    <p>
+      Email: {{authorsData.email}}
+    </p>
+    <p>
+      Phone: {{authorsData.phone}}
+    </p>
+    <p>
+      Date of Birth:{{authorsData.date_of_birth | date: 'M/d/yy'}}
+      ({{authorsData.date_of_birth | toYears}})
+    </p>
+  </mat-card>
+
+    <div>
+      <h2>Post by author</h2>
+      <mat-card *ngFor="let post of authorsData.posts">
+        <p>{{authorsData.first_name}} {{authorsData.last_name}}</p>
+        <a href="/authors/post/{{post.id}}">{{post.title}}</a>
+        <p>{{post.date_created | date: 'MMM d, y, h:mm:ss a'}}</p>
+      </mat-card>
+    </div>
+
+</div>
+
+<div class="load-spinner" *ngIf="isLoading">
+  <mat-spinner></mat-spinner>
+</div>

@@ -1,0 +1,120 @@
+
+<div class="wrapper" >
+  <form class="filter" [formGroup]="filterAuthor">
+    <mat-card>
+      <h3>Filters</h3>
+      <mat-card-content>
+        <h2>Min</h2>
+        <p>
+          {{minValue}}
+        </p>
+        <mat-slider
+          formControlName="yearsFrom"
+          class="example-margin"
+          [max]="max"
+          [min]="min"
+          [step]="step"
+        >
+        </mat-slider>
+      </mat-card-content>
+
+      <mat-card-content>
+        <h2>Max</h2>
+        <p>
+          {{maxValue}}
+        </p>
+        <mat-slider
+          formControlName="yearsTo"
+          class="example-margin"
+          [max]="maxTo"
+          [min]="minTo"
+          [step]="step"
+        >
+        </mat-slider>
+      </mat-card-content>
+      <mat-form-field>
+        <mat-label>Gender</mat-label>
+        <mat-select     formControlName="is_female_gender">
+          <mat-option value="male">Male
+          </mat-option>
+          <mat-option value="female">Female
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="fill"
+                      class="wrapper__card__input"
+      >
+        <mat-label>Name</mat-label>
+        <input matInput placeholder="name"
+               formControlName="name"
+               #code
+               required>
+        <mat-hint>Enter name</mat-hint>
+        <mat-hint align="end">{{code.value?.length || 0}}/10</mat-hint>
+      </mat-form-field>
+      <mat-form-field appearance="fill"
+                      class="wrapper__card__input"
+      >
+        <mat-label>Name</mat-label>
+        <input matInput placeholder="name"
+               formControlName="allfieldSearch"
+               #codes
+               required>
+        <mat-hint>Enter Email,Phone or Address</mat-hint>
+        <mat-hint align="end">{{codes.value?.length || 0}}/10</mat-hint>
+      </mat-form-field>
+    </mat-card>
+
+  </form>
+  <div  class="example-container mat-elevation-z8">
+
+    <div class="example-table-container">
+
+      <table mat-table [dataSource]="authors" class="example-table"
+             matSort matSortActive="name" matSortDisableClear matSortDirection="desc">
+
+        <ng-container matColumnDef="first_name" >
+          <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Name</th>
+          <td mat-cell *matCellDef="let row" routerLink="/authors/{{row.id}}">{{row.first_name}} {{row.last_name}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="date_of_birth">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Age</th>
+          <td mat-cell *matCellDef="let row">{{row.date_of_birth | toYears}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="gender">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear >Gender</th>
+          <td mat-cell *matCellDef="let row">{{row.gender}}</td>
+        </ng-container>
+        <ng-container matColumnDef="phone">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Phone</th>
+          <td mat-cell *matCellDef="let row">{{row.phone}}</td>
+        </ng-container>
+        <ng-container matColumnDef="country">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>country</th>
+          <td mat-cell *matCellDef="let row">{{row.country}}</td>
+        </ng-container>
+        <ng-container matColumnDef="posts_count">
+          <th mat-header-cell *matHeaderCellDef >posts_count</th>
+          <td mat-cell *matCellDef="let row">{{row.post_count}}</td>
+        </ng-container>
+
+        <!-- Created Column -->
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>
+            Email
+          </th>
+          <td mat-cell *matCellDef="let row">{{row.email}}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+      </table>
+    </div>
+    <mat-paginator  [length]="resultsLength"  [pageSizeOptions]="[25,50, 100]"></mat-paginator>
+  </div>
+
+
+</div>
